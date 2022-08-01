@@ -10,8 +10,9 @@ import com.example.tz_nord_klan.data.entity.Container
 import com.example.tz_nord_klan.data.entity.Event
 import com.example.tz_nord_klan.data.entity.EventUserRef
 import com.example.tz_nord_klan.data.entity.User
+import java.io.File
 
-@Database(entities = [User::class, Container::class, Event::class, EventUserRef::class], version = 6, exportSchema = false)
+@Database(entities = [User::class, Container::class, Event::class, EventUserRef::class], version = 4, exportSchema = true)
 @TypeConverters(ConvertorDate::class)
 abstract class DatabaseEvent() : RoomDatabase() {
 
@@ -22,7 +23,7 @@ abstract class DatabaseEvent() : RoomDatabase() {
         var INSTANCE: DatabaseEvent?= null
 
         fun getDatabaseNotes(context: Context): DatabaseEvent {
-            var tempInstance = INSTANCE
+            val tempInstance = INSTANCE
             if (tempInstance != null){
                 return tempInstance
             }
@@ -31,7 +32,8 @@ abstract class DatabaseEvent() : RoomDatabase() {
                 val roomDataBaseInstance = Room.databaseBuilder(
                     context,
                     DatabaseEvent::class.java,
-                    "EventDB")
+                    "Database.db")
+                    .createFromAsset("DatabaseAssets.db")
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build()

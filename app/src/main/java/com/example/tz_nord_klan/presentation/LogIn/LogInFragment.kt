@@ -1,6 +1,7 @@
 package com.example.tz_nord_klan.presentation.LogIn
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tz_nord_klan.R
+import com.example.tz_nord_klan.data.entity.Container
 import com.example.tz_nord_klan.data.entity.User
 import com.example.tz_nord_klan.presentation.viewModelDB
 import com.example.tz_nord_klan.databinding.FragmentLogInBinding
@@ -21,24 +23,17 @@ class LogInFragment : Fragment() {
 
     private val viewModelСonnectDB : viewModelDB by activityViewModels()
 
-    private val listUser: ArrayList<User> = ArrayList()
-
-    override fun onResume() {
-        viewModelСonnectDB.getListUser().observe(this){
-            if (listUser.isEmpty()){
-                listUser.clear()
-            }
-            listUser.addAll(it)
-        }
-        super.onResume()
-    }
+    private var listUser: ArrayList<User> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View{
         _binding = FragmentLogInBinding.inflate(inflater, container, false)
-
+        viewModelСonnectDB.getListUser().observe(viewLifecycleOwner){
+            listUser = it as ArrayList<User>
+            Log.d("ResponseLogINsd00", it.toString())
+        }
         return binding.root
     }
 
@@ -57,6 +52,7 @@ class LogInFragment : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
     }
+
 
     private fun valid (name: String, password: String):Boolean {
         if (name.isBlank() and password.isBlank())

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TZ_NORD_KLAN</string>
+    <string name="app_name">MeetRoom</string>
     <string name="meetroom">MeetRoom</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

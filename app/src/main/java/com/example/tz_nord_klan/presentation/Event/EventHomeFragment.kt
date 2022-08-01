@@ -31,33 +31,31 @@ class EventHomeFragment : Fragment() {
     private val viewModelShared: SharedEventViewModel by activityViewModels()
     private val viewModelConnectDb : viewModelDB by activityViewModels()
 
-    private val nowDate = Calendar.getInstance()
     private var selectDate = Calendar.getInstance()
 
     private val fullListEvent: ArrayList<EventWithUser> = ArrayList()
     private val sortListEvent: ArrayList<EventWithUser> = ArrayList()
+
     private var user: User?=null
     private var container: Container?=null
 
     private var isMyEvent = false
 
     override fun onResume() {
+
         viewModelConnectDb.getContainerWithEventAndUserByUsed().observe(viewLifecycleOwner){ it ->
             if (fullListEvent.isNotEmpty()){
                 fullListEvent.clear()
             }
-
-            val sortTimeList = it.event.sortedWith(compareBy { sortTimeVariable -> sortTimeVariable.event.timeEventStart })
-            val sortTimeWithDateList = sortTimeList.filter { sortDateVariable ->  sortDateVariable.event.dateEvent.date.days == selectDate.time.date.days }
-            fullListEvent.addAll(sortTimeWithDateList)
-            setAdapter(fullListEvent)
+            fullListEvent.addAll(it.event)
+            sortListByDate()
 
 
             container = it.container
             viewModelShared.setContainer(container!!)
             binding.room.text = container!!.nameRoom
-
         }
+
 
         viewModelConnectDb.getAuthUser().observe(viewLifecycleOwner){
             user = it
@@ -88,12 +86,13 @@ class EventHomeFragment : Fragment() {
             }
 
             val calendar = binding.calendar
-            calendar.init(nowDate.get(Calendar.YEAR),
-                nowDate.get(Calendar.MONTH), nowDate.get(Calendar.DAY_OF_MONTH), null)
+            calendar.init(selectDate.get(Calendar.YEAR),
+                selectDate.get(Calendar.MONTH), selectDate.get(Calendar.DAY_OF_MONTH), null)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 calendar.setOnDateChangedListener { datePicker, year, mounth, daouOfMouth ->
                     selectDate.set(year, mounth, daouOfMouth)
+                    sortListByDate()
                     binding.selectDate.text = convertDate(selectDate.time)
                 }
             }
@@ -108,7 +107,7 @@ class EventHomeFragment : Fragment() {
             } else{
                 isMyEvent = false
                 binding.myEvent.text = "Мои события"
-                sortedByTime()
+                sortListByDate()
             }
         }
 
@@ -141,43 +140,38 @@ class EventHomeFragment : Fragment() {
         binding.eventRecycler.adapter = eventAdapter
     }
 
-    private fun updateAdapter(){
-
-    }
-
     private fun sortListByDateToday(){
-        selectDate = nowDate
+        selectDate = Calendar.getInstance()
+        binding.selectDate.text = "Сегодня"
         sortListByDate()
     }
 
     private fun sortListByDate(){
-        if (sortListEvent.isNotEmpty()){
-            sortListEvent.clear()
-        }
 
-        val todayDate = Calendar.getInstance()
-        val sortTimeWithDateList = fullListEvent.filter { sortDateVariable ->  sortDateVariable.event.dateEvent.date.days == todayDate.time.date.days }
+        val sortDateList = fullListEvent.filter { sortDateVariable ->  sortDateVariable.event.dateEvent.date.days == selectDate.time.date.days }
+        sortListEvent.clear()
+        sortListEvent.addAll(sortedByTime(sortDateList))
 
-        setAdapter(sortTimeWithDateList)
+        setAdapter(sortListEvent)
     }
 
-    private fun sortedByTime(){
-        val sortList = fullListEvent.sortedWith(compareBy { it.event.timeEventStart })
-        setAdapter(sortList)
+    private fun sortedByTime(list: List<EventWithUser>): List<EventWithUser> {
+        return list.sortedWith(compareBy { it.event.timeEventStart })
     }
 
     private fun sortListByUser(){
-        if (sortListEvent.isNotEmpty()){
-            sortListEvent.clear()
-        }
 
-        for (i in fullListEvent){
+        val listUserEvent = ArrayList<EventWithUser>()
+        for (i in sortListEvent){
             for (j in i.playlists){
                 if (j.idUser == user?.idUser){
-                    sortListEvent.add(i)
+                    listUserEvent.add(i)
                 }
             }
         }
+
+        sortListEvent.clear()
+        sortListEvent.addAll(sortedByTime(listUserEvent))
 
         setAdapter(sortListEvent)
     }

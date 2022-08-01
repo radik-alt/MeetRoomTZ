@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TZ_NORD_KLAN">
         <activity
-            android:name=".presentation.Event.EventActivity"
-            android:exported="false" />
-        <activity
             android:name=".presentation.LogIn.MainActivity"
             android:exported="true">
             <intent-filter>
