@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_host"
+    app:startDestination="@id/logInFragment">
+
+    <fragment
+        android:id="@+id/eventHomeFragment"
+        android:name="com.example.tz_nord_klan.presentation.Event.EventHomeFragment"
+        android:label="event_home_fragment"
+        tools:layout="@layout/event_home_fragment" >
+        <action
+            android:id="@+id/action_eventHomeFragment_to_containerFragment"
+            app:destination="@id/containerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_eventHomeFragment_to_changeEventFragment"
+            app:destination="@id/changeEventFragment" />
+        <action
+            android:id="@+id/action_eventHomeFragment_to_logInFragment"
+            app:destination="@id/logInFragment"
+            app:popUpTo="@id/eventHomeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/containerFragment"
+        android:name="com.example.tz_nord_klan.presentation.Container.ContainerFragment"
+        android:label="container_fragment"
+        tools:layout="@layout/container_fragment" >
+        <action
+            android:id="@+id/action_containerFragment_to_changeFragment"
+            app:destination="@id/changeFragment" />
+        <action
+            android:id="@+id/action_containerFragment_to_viewContainerFragment"
+            app:destination="@id/viewContainerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeFragment"
+        android:name="com.example.tz_nord_klan.presentation.Container.changeContainer.ChangeContainerFragment"
+        android:label="fragment_change"
+        tools:layout="@layout/fragment_change" />
+    <dialog
+        android:id="@+id/changeEventFragment"
+        android:name="com.example.tz_nord_klan.presentation.Event.changeEvent.ChangeEventFragment"
+        android:label="fragment_change_event"
+        tools:layout="@layout/fragment_change_event" />
+    <fragment
+        android:id="@+id/viewContainerFragment"
+        android:name="com.example.tz_nord_klan.presentation.Container.changeContainer.ViewContainerFragment"
+        android:label="fragment_view_container"
+        tools:layout="@layout/fragment_view_container" />
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.example.tz_nord_klan.presentation.LogIn.LogInFragment"
+        android:label="fragment_log_in"
+        tools:layout="@layout/fragment_log_in" >
+        <action
+            android:id="@+id/action_logInFragment_to_eventHomeFragment"
+            app:destination="@id/eventHomeFragment"
+            app:popUpTo="@id/logInFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

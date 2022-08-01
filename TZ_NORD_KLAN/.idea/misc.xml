@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Radik/.gradle/caches/transforms-3/46140e822b65e5cee619df38a5065bcc/transformed/appcompat-1.4.2/res/layout/abc_screen_toolbar.xml" value="0.1675929884566054" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable-v24/button_home_click_left.xml" value="0.211" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable-v24/button_home_click_right.xml" value="0.211" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/button_home_click.xml" value="0.211" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/event_backgound.xml" value="0.2075" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/event_backgound_used.xml" value="0.2075" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/ic_add.xml" value="0.2075" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/ic_baseline_timer_24.xml" value="0.2115" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/ic_calendar.xml" value="0.2075" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/ic_delete.xml" value="0.2115" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/ic_home.xml" value="0.2075" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/ic_person.xml" value="0.1" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/ic_person_add.xml" value="0.2115" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/ic_send.xml" value="0.2075" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/ic_settings_24.xml" value="0.2075" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/item_container.xml" value="0.211" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/item_container_used.xml" value="0.2075" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/sign_up.xml" value="0.2075" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/sign_up_disabled.xml" value="0.2075" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/activity_event.xml" value="0.16417272338606242" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/bottomsheet_setting.xml" value="0.16417272338606242" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/container_fragment.xml" value="0.33" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/container_item.xml" value="0.16417272338606242" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/container_item_used.xml" value="0.16417272338606242" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/event_home_fragment.xml" value="0.25" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/event_item.xml" value="0.16417272338606242" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/event_item_used.xml" value="0.16417272338606242" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/fragment_change.xml" value="0.33" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/fragment_change_event.xml" value="0.2" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/fragment_log_in.xml" value="0.16417272338606242" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/fragment_view_container.xml" value="0.1675929884566054" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/layout/item_userwithevent.xml" value="0.1675929884566054" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/menu/home_menu.xml" value="0.16417272338606242" />
+        <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/menu/menu_container.xml" value="0.16417272338606242" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

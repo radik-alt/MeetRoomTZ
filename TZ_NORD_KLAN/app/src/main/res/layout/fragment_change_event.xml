@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="20sp"
+    tools:context=".presentation.Event.changeEvent.ChangeEventFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nameEvent"
+            android:lines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Название события" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_marginTop="10sp"
+            android:id="@+id/deleteEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_delete"
+            android:textAllCaps="false" />
+
+
+        <ImageButton
+            android:layout_marginTop="10sp"
+            android:id="@+id/saveEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_send"
+            android:textAllCaps="false" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="10sp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10sp">
+
+            <ImageButton
+                android:id="@+id/dateEventClick"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_calendar"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/dateEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10sp"
+                android:text="@string/app_name" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_columnWeight="1"
+            android:orientation="horizontal"
+            android:paddingTop="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/timeEventClick"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_baseline_timer_24"
+                android:textAllCaps="false" />
+
+            <LinearLayout
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/timeEventStart"
+                    android:text="@string/app_name"
+                    android:layout_marginStart="10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:text="-"
+                    android:layout_marginStart="10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/timeEventEnd"
+                    android:text="@string/app_name"
+                    android:layout_marginStart="10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_marginTop="20sp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_marginTop="10sp"
+            android:background="@color/redColor"
+            android:layout_width="match_parent"
+            android:layout_height="1sp"/>
+
+        <TextView
+            android:padding="10sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:text="Автор"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+           <TextView
+               android:id="@+id/author"
+               android:layout_marginTop="10sp"
+               android:textSize="18sp"
+               android:textColor="@color/black"
+               android:layout_marginLeft="10sp"
+               android:layout_gravity="center_vertical"
+               android:text="@string/app_name"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="10sp"
+        android:background="@color/redColor"
+        android:layout_width="match_parent"
+        android:layout_height="2sp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addUser"
+        android:layout_marginTop="10sp"
+        android:textAllCaps="false"
+        android:text="Записаться"
+        android:textColor="@color/white"
+        android:background="@drawable/sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+        android:visibility="visible"
+        android:layout_marginTop="20sp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:text="Список участников"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10sp"
+            android:id="@+id/recyclerUserEvent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
