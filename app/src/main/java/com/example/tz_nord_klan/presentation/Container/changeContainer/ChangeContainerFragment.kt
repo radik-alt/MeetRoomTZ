@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.tz_nord_klan.data.entity.Container
 import com.example.tz_nord_klan.data.entity.ContatinerWithEvent
-import com.example.tz_nord_klan.presentation.viewModelDB
 import com.example.tz_nord_klan.databinding.FragmentChangeBinding
-import com.example.tz_nord_klan.presentation.Container.ContainerViewModel
+import com.example.tz_nord_klan.presentation.Container.SharedContainerViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ChangeContainerFragment : BottomSheetDialogFragment() {
@@ -19,19 +19,19 @@ class ChangeContainerFragment : BottomSheetDialogFragment() {
     private val binding: FragmentChangeBinding
         get() = _binding ?: throw RuntimeException("FragmentChangeBinding == null")
 
-    private val viewModel: ContainerViewModel by activityViewModels()
-    private val viewModelConnectDb : viewModelDB by activityViewModels()
+    private val viewModelShared: SharedContainerViewModel by activityViewModels()
+    private lateinit var changeViewModel : ChangeContainerViewModel
     private var containerObject : ContatinerWithEvent?= null
     private var isEdit: Boolean = false
 
     override fun onResume() {
-        viewModel.getEdit().observe(viewLifecycleOwner){
+        viewModelShared.getEdit().observe(viewLifecycleOwner){
             isEdit = it
         }
 
         if (isEdit){
             if (containerObject == null){
-                containerObject = viewModel.getContainer().value
+                containerObject = viewModelShared.getContainer().value
             }
         }
 
@@ -45,6 +45,7 @@ class ChangeContainerFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChangeBinding.inflate(inflater, container, false)
+        changeViewModel = ViewModelProvider(this).get(ChangeContainerViewModel::class.java)
 
         return binding.root
     }
@@ -74,20 +75,20 @@ class ChangeContainerFragment : BottomSheetDialogFragment() {
     }
 
     private fun deleteContainer(){
-        viewModelConnectDb.deleteContainer(containerObject!!.container)
+        changeViewModel.deleteContainer(containerObject!!.container)
     }
 
     private fun updateContainerSetUsed() {
-        viewModelConnectDb.setContainerWithEventByUsed()
+        changeViewModel.setAllContainerUsedFalse()
         updateContainer(true)
     }
 
     private fun addContainer() {
         val nameRoom = binding.nameContainer.text.toString()
         val descriptionRoom = binding.descriptionContainer.text.toString()
-        if (valid(nameRoom, descriptionRoom)){
+        if (valid(nameRoom)){
             val container = Container(null, nameRoom, false, descriptionRoom)
-            viewModelConnectDb.insertContainer(container)
+            changeViewModel.addContainer(container)
             Toast.makeText(requireContext(), "Запись добавлена!", Toast.LENGTH_SHORT).show()
         }
     }
@@ -95,9 +96,9 @@ class ChangeContainerFragment : BottomSheetDialogFragment() {
     private fun updateContainer(used:Boolean){
         val nameRoom = binding.nameContainer.text.toString()
         val descriptionRoom = binding.descriptionContainer.text.toString()
-        if (valid(nameRoom, descriptionRoom)){
+        if (valid(nameRoom)){
             val container = Container(containerObject?.container?.idContainer, nameRoom, used, descriptionRoom)
-            viewModelConnectDb.updateContainer(container)
+            changeViewModel.updateContainer(container)
             Toast.makeText(requireContext(), "Запись обновлена!", Toast.LENGTH_SHORT).show()
         }
     }
@@ -113,7 +114,7 @@ class ChangeContainerFragment : BottomSheetDialogFragment() {
 
     }
 
-    private fun valid(nameRoom: String, descriptionRoom:String): Boolean {
+    private fun valid(nameRoom: String): Boolean {
         if (nameRoom.isNotBlank()) {
             return true
         }

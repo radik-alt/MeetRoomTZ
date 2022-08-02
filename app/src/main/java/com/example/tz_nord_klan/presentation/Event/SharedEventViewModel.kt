@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.tz_nord_klan.data.entity.Container
-import com.example.tz_nord_klan.data.entity.Event
 import com.example.tz_nord_klan.data.entity.EventWithUser
 
 class SharedEventViewModel : ViewModel() {

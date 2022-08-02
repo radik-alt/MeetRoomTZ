@@ -1,13 +1,12 @@
 package com.example.tz_nord_klan.presentation.Container.changeContainer
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.tz_nord_klan.databinding.FragmentViewContainerBinding
-import com.example.tz_nord_klan.presentation.Container.ContainerViewModel
+import com.example.tz_nord_klan.presentation.Container.SharedContainerViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ViewContainerFragment : BottomSheetDialogFragment() {
@@ -17,10 +16,10 @@ class ViewContainerFragment : BottomSheetDialogFragment() {
     private val binding: FragmentViewContainerBinding
         get() = _binding ?: throw RuntimeException("FragmentViewContainerBinding == null")
 
-    private val viewModel: ContainerViewModel by activityViewModels()
+    private val viewModelShared: SharedContainerViewModel by activityViewModels()
 
     override fun onResume() {
-        viewModel.getContainer().observe(viewLifecycleOwner){
+        viewModelShared.getContainer().observe(viewLifecycleOwner){
             binding.nameContainer.setText(it.container.nameRoom)
             binding.descriptionContainer.setText(it.container.descriptionRoom)
         }

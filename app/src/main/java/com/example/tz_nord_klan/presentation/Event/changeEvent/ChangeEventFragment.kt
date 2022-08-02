@@ -4,16 +4,18 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.tz_nord_klan.R
 import com.example.tz_nord_klan.data.entity.*
-import com.example.tz_nord_klan.presentation.viewModelDB
 import com.example.tz_nord_klan.databinding.FragmentChangeEventBinding
 import com.example.tz_nord_klan.presentation.Event.SharedEventViewModel
+import com.example.tz_nord_klan.presentation.SharedViewModelAuth
 import com.example.tz_nord_klan.presentation.adapter.event.UserEventAdapter.UserEventAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.*
@@ -26,7 +28,8 @@ class ChangeEventFragment : BottomSheetDialogFragment() {
         get() = _binding ?: throw RuntimeException("FragmentChangeEventBinding == null")
 
     private val viewModelShared: SharedEventViewModel by activityViewModels()
-    private val viewModelDbConnect: viewModelDB by activityViewModels()
+    private val viewModelDbConnect: SharedViewModelAuth by activityViewModels()
+    private lateinit var changeViewModel : ChangeEventViewModel
 
     private var isEdit : Boolean = false
     private var isUserUsed :Boolean = false
@@ -80,6 +83,7 @@ class ChangeEventFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChangeEventBinding.inflate(inflater, container, false)
+        changeViewModel = ViewModelProvider(this).get(ChangeEventViewModel::class.java)
 
         return binding.root
     }
@@ -158,15 +162,15 @@ class ChangeEventFragment : BottomSheetDialogFragment() {
                 timeEnd,
                 objectEvent!!.event.listEventId
             )
-            viewModelDbConnect.updateEvent(event)
+            changeViewModel.updateEvent(event)
         }
     }
 
     private fun addEvent(){
         val nameEvent = binding.nameEvent.text.toString()
-        if (valid(nameEvent)){
+        if (valid(nameEvent) && validTimer(timeStart, timeEnd)){
             val event = Event(null, nameEvent, currentDate.time, timeStart, timeEnd, container?.idContainer!!)
-            viewModelDbConnect.insertEvent(event)
+            changeViewModel.addEvent(event)
         }
     }
 
@@ -179,7 +183,7 @@ class ChangeEventFragment : BottomSheetDialogFragment() {
             objectEvent!!.event.timeEventEnd,
             objectEvent!!.event.listEventId
         )
-        viewModelDbConnect.deleteEvent(event)
+        changeViewModel.deleteEvent(event)
         dismiss()
         Toast.makeText(requireContext(), "Event delete!", Toast.LENGTH_SHORT).show()
     }
@@ -196,17 +200,18 @@ class ChangeEventFragment : BottomSheetDialogFragment() {
 
     private fun addUserToEvent(){
         if (isEdit){
-            viewModelDbConnect.insertEventWithUserRef(
+            changeViewModel.addUserToEvent(
                 EventUserRef(
                     objectEvent?.event!!.idEvent!!,
                     user?.idUser!!
-            ))
+                )
+            )
         }
     }
 
     private fun deleteUserToEvent(){
         if (isUserUsed){
-            viewModelDbConnect.deleteEventUserRef(
+            changeViewModel.deleteUserToEvent(
                 EventUserRef(
                     objectEvent?.event!!.idEvent!!,
                     user?.idUser!!
@@ -228,8 +233,8 @@ class ChangeEventFragment : BottomSheetDialogFragment() {
             binding.deleteEvent.visibility = View.GONE
             binding.addUser.visibility = View.GONE
             binding.dateEvent.text = convertDate(currentDate.time)
-            binding.timeEventStart.text = convertLongToTime(currentDate.time.time)
-            binding.timeEventEnd.text = convertLongToTime(currentDate.time.time)
+            binding.timeEventStart.text = convertLongToTime(timeStart)
+            binding.timeEventEnd.text = convertLongToTime(timeEnd)
         }
     }
 
@@ -255,7 +260,10 @@ class ChangeEventFragment : BottomSheetDialogFragment() {
     }
 
     private fun validTimer(start:Long, end:Long):Boolean{
-        if (start > end+30){
+        if (start > end) {
+            Toast.makeText(requireContext(), "Начало не может быть позже конца события!", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (end - start <= 30){
             Toast.makeText(requireContext(), "Событие должно проходить минимум 30 минут!", Toast.LENGTH_SHORT).show()
             return false
         }

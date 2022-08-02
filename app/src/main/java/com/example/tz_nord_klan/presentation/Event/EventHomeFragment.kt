@@ -3,18 +3,21 @@ package com.example.tz_nord_klan.presentation.Event
 import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.util.Log
 import android.view.*
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.tz_nord_klan.R
 import com.example.tz_nord_klan.data.entity.Container
 import com.example.tz_nord_klan.data.entity.EventWithUser
 import com.example.tz_nord_klan.data.entity.User
-import com.example.tz_nord_klan.presentation.viewModelDB
 import com.example.tz_nord_klan.databinding.EventHomeFragmentBinding
 import com.example.tz_nord_klan.presentation.Event.changeEvent.ChangeEventFragment
+import com.example.tz_nord_klan.presentation.SharedViewModelAuth
 import com.example.tz_nord_klan.presentation.adapter.Interface.InterfaceEvent
 import com.example.tz_nord_klan.presentation.adapter.event.EventAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -29,7 +32,8 @@ class EventHomeFragment : Fragment() {
         get() = _binding ?: throw RuntimeException("EventHomeFragmentBinding == null")
 
     private val viewModelShared: SharedEventViewModel by activityViewModels()
-    private val viewModelConnectDb : viewModelDB by activityViewModels()
+    private val sharedViewModelConnectDb : SharedViewModelAuth by activityViewModels()
+    private lateinit var viewModelEvent : ViewModelEvent
 
     private var selectDate = Calendar.getInstance()
 
@@ -40,24 +44,15 @@ class EventHomeFragment : Fragment() {
     private var container: Container?=null
 
     private var isMyEvent = false
+    private var isUsedContainer = false
 
     override fun onResume() {
-
-        viewModelConnectDb.getContainerWithEventAndUserByUsed().observe(viewLifecycleOwner){ it ->
-            if (fullListEvent.isNotEmpty()){
-                fullListEvent.clear()
-            }
-            fullListEvent.addAll(it.event)
-            sortListByDate()
-
-
-            container = it.container
-            viewModelShared.setContainer(container!!)
-            binding.room.text = container!!.nameRoom
+        viewModelEvent.getCountContainer().observe(viewLifecycleOwner){
+            isUsedContainer = it > 0
+            getDataEventFormDB()
         }
 
-
-        viewModelConnectDb.getAuthUser().observe(viewLifecycleOwner){
+        sharedViewModelConnectDb.getAuthUser().observe(viewLifecycleOwner){
             user = it
         }
 
@@ -69,6 +64,7 @@ class EventHomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = EventHomeFragmentBinding.inflate(inflater, container, false)
+        viewModelEvent = ViewModelProvider(this).get(ViewModelEvent::class.java)
         setHasOptionsMenu(true)
 
 
@@ -119,6 +115,26 @@ class EventHomeFragment : Fragment() {
             sortListByDateToday()
         }
 
+    }
+
+    private fun getDataEventFormDB(){
+        if (isUsedContainer){
+            viewModelEvent.getByUsedContainer().observe(viewLifecycleOwner){ it ->
+                if (fullListEvent.isNotEmpty()){
+                    fullListEvent.clear()
+                }
+                fullListEvent.addAll(it.event)
+                sortListByDate()
+
+                container = it.container
+                viewModelShared.setContainer(container!!)
+                binding.room.text = container!!.nameRoom
+            }
+        } else{
+            binding.ToFragmentContainer.text = "Создайте комнату"
+            binding.todayEvent.visibility = View.GONE
+            binding.myEvent.visibility = View.GONE
+        }
     }
 
     private fun bottomDialog () {
@@ -194,8 +210,13 @@ class EventHomeFragment : Fragment() {
 
             bottomSheet.show()
         } else if (item.itemId == R.id.add){
-            bottomDialog()
-            viewModelShared.setIsEdit(false)
+            if (isUsedContainer){
+                bottomDialog()
+                viewModelShared.setIsEdit(false)
+            } else {
+                Toast.makeText(requireContext(), "Создайте команту!", Toast.LENGTH_SHORT).show()
+            }
+
         }
         return super.onOptionsItemSelected(item)
     }

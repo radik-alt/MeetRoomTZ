@@ -15,6 +15,8 @@ interface RepositoryDB {
 
     fun updateContainer(container: Container)
 
+    fun getCountRepository() : LiveData<Int>
+
     fun deleteContainer(container: Container)
 
     fun deleteEventUserRef(eventUserRef: EventUserRef)
@@ -22,6 +24,8 @@ interface RepositoryDB {
     fun updateEvent(event: Event)
 
     fun deleteEvent(event: Event)
+
+    fun getListUser(): LiveData<List<User>>
 
     fun getContainerWithEventAndUser() : LiveData<List<ContatinerWithEvent>>
 
@@ -31,6 +35,5 @@ interface RepositoryDB {
 
     fun setContainerWithEventByUsed()
 
-    fun getUserWithEvent() : LiveData<List<EventWithUser>>
 
 }

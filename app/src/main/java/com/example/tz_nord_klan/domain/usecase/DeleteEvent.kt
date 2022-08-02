@@ -1,9 +1,12 @@
 package com.example.tz_nord_klan.domain.usecase
 
-class DeleteEvent {
+import com.example.tz_nord_klan.data.entity.Event
+import com.example.tz_nord_klan.domain.repository.RepositoryDB
 
-    fun deleteEvent(){
+class DeleteEvent(private val repositoryDB: RepositoryDB) {
 
+    fun deleteEvent(event:Event){
+        repositoryDB.deleteEvent(event)
     }
 
 }
