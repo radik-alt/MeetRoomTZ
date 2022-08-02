@@ -12,7 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class viewModelDB(application: Application, private val getUserWithEvent: GetUserWithEvent) : AndroidViewModel(application) {
+class viewModelDB(application: Application) : AndroidViewModel(application) {
 
     private val repositoryDatabaseImpl: RepositoryDatabaseImpl
 
@@ -54,6 +54,8 @@ class viewModelDB(application: Application, private val getUserWithEvent: GetUse
     fun getListUser() : LiveData<List<User>>{
         return repositoryDatabaseImpl.getListUser()
     }
+
+    fun getCountContainer() : LiveData<Int> = repositoryDatabaseImpl.getCountContainer()
 
     fun updateContainer(container: Container){
         repositoryDatabaseImpl.updateContainer(container)

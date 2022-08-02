@@ -82,29 +82,10 @@ class ContainerFragment : Fragment() {
         adapterContainer.setData(listContainer)
         binding.recyclerContainer.adapter = adapterContainer
 
-        val itemTouchHelper = ItemTouchHelper(simpleCallback)
-        itemTouchHelper.attachToRecyclerView(binding.recyclerContainer)
-
     }
 
     private fun updateAdapter() {
         adapterContainer.setData(listContainer)
-    }
-
-    private val simpleCallback = object :ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT){
-        override fun onMove(
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder,
-            target: RecyclerView.ViewHolder
-        ): Boolean {
-            return false
-        }
-
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            viewModelConnectDb.getContainerWithEventAndUserById(listContainer[viewHolder.adapterPosition].container.idContainer!!).observe(viewLifecycleOwner){
-                Log.d("NewGetContainer", it.toString())
-            }
-        }
     }
 
     private fun bottomDialog (choose:Int) {

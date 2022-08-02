@@ -89,13 +89,13 @@ class ChangeEventFragment : BottomSheetDialogFragment() {
         binding.timeEventClick.setOnClickListener {
             TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
                 val tempStartTime = ((hour * 60) + minute).toLong()
-                TimePickerDialog(it.context, TimePickerDialog.OnTimeSetListener { timePicker2, i, i2 ->
-                    val tempEndTime = ((i * 60) + i2).toLong()
+                TimePickerDialog(it.context, TimePickerDialog.OnTimeSetListener { timePicker2, hour2, minute2 ->
+                    val tempEndTime = ((hour2 * 60) + minute2).toLong()
                     if (validTimer(tempStartTime, tempEndTime)){
                         timeStart = tempStartTime
                         timeEnd = tempEndTime
                         binding.timeEventStart.text = convertLongToTime(timeStart)
-                        binding.timeEventStart.text = convertLongToTime(timeStart)
+                        binding.timeEventEnd.text = convertLongToTime(timeEnd)
                     }
                 }, 0, 0, true).show()
             }, 0, 0, true).show()
@@ -119,10 +119,6 @@ class ChangeEventFragment : BottomSheetDialogFragment() {
             } else {
                 addEvent()
             }
-        }
-
-        if (isEdit){
-            binding.deleteEvent.visibility = View.GONE
         }
 
         binding.deleteEvent.setOnClickListener {
@@ -149,10 +145,11 @@ class ChangeEventFragment : BottomSheetDialogFragment() {
     private fun updateEvent() {
         val nameEvent = binding.nameEvent.text.toString()
         if (valid(nameEvent)){
-            if (validTimer(timeStart, timeEnd)){
-                timeEnd = objectEvent?.event!!.timeEventStart
-                timeStart = objectEvent?.event!!.timeEventEnd
+            if (!validTimer(timeStart, timeEnd)){
+                timeStart = objectEvent?.event!!.timeEventStart
+                timeEnd = objectEvent?.event!!.timeEventEnd
             }
+
             val event = Event(
                 objectEvent?.event?.idEvent,
                 nameEvent,
@@ -168,7 +165,7 @@ class ChangeEventFragment : BottomSheetDialogFragment() {
     private fun addEvent(){
         val nameEvent = binding.nameEvent.text.toString()
         if (valid(nameEvent)){
-            val event = Event(null, nameEvent, Date(), timeStart, timeEnd, container?.idContainer!!)
+            val event = Event(null, nameEvent, currentDate.time, timeStart, timeEnd, container?.idContainer!!)
             viewModelDbConnect.insertEvent(event)
         }
     }
@@ -220,6 +217,8 @@ class ChangeEventFragment : BottomSheetDialogFragment() {
 
     private fun setData(){
         if (isEdit){
+            currentDate.time = objectEvent?.event!!.dateEvent
+
             binding.nameEvent.setText(objectEvent?.event!!.nameEvent)
             binding.dateEvent.text = convertDate(objectEvent?.event!!.dateEvent)
             binding.timeEventStart.text = convertLongToTime(objectEvent?.event!!.timeEventStart)
@@ -230,7 +229,7 @@ class ChangeEventFragment : BottomSheetDialogFragment() {
             binding.addUser.visibility = View.GONE
             binding.dateEvent.text = convertDate(currentDate.time)
             binding.timeEventStart.text = convertLongToTime(currentDate.time.time)
-            binding.timeEventEnd.text = convertLongToTime(currentDate.time.time+30)
+            binding.timeEventEnd.text = convertLongToTime(currentDate.time.time)
         }
     }
 

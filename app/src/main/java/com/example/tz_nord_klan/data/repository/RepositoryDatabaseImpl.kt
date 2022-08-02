@@ -13,6 +13,8 @@ class RepositoryDatabaseImpl(private val daoInterface: DaoInterface) : Repositor
 
     fun getListUser(): LiveData<List<User>> = daoInterface.getListUser()
 
+    fun getCountContainer() : LiveData<Int> = daoInterface.getCountContainer()
+
     override suspend fun insertContainer(container: Container) {
         daoInterface.addContainer(container)
     }

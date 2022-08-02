@@ -4,6 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Radik/.gradle/caches/transforms-3/46140e822b65e5cee619df38a5065bcc/transformed/appcompat-1.4.2/res/layout/abc_screen_toolbar.xml" value="0.1675929884566054" />
+        <entry key="..\:/Users/Radik/AndroidStudioProjects/MeetRoomTZ_temp/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Radik/AndroidStudioProjects/MeetRoomTZ_temp/app/src/main/res/layout/bottomsheet_setting.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Radik/AndroidStudioProjects/MeetRoomTZ_temp/app/src/main/res/layout/event_home_fragment.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Radik/AndroidStudioProjects/MeetRoomTZ_temp/app/src/main/res/layout/fragment_change_event.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Radik/AndroidStudioProjects/MeetRoomTZ_temp/app/src/main/res/layout/fragment_log_in.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable-v24/button_home_click_left.xml" value="0.211" />
         <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable-v24/button_home_click_right.xml" value="0.211" />
         <entry key="..\:/Users/Radik/Documents/git/TZ_NORD_KLAN/app/src/main/res/drawable/button_home_click.xml" value="0.211" />

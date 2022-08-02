@@ -40,9 +40,9 @@ class EventAdapter(private val list: List<EventWithUser>, private val interfaceE
     private fun convertLongToTime(time: Long): String = String.format("%02d:%02d", time / 60, time % 60)
 
     override fun getItemViewType(position: Int): Int {
-        return if (list[position].event.dateEvent.date.days < nowDate.time.date.days
-            || list[position].event.dateEvent.month < nowDate.time.month
-            || list[position].event.dateEvent.year < nowDate.time.year){
+        return if (list[position].event.dateEvent.date.days != nowDate.time.date.days
+            || list[position].event.dateEvent.month != nowDate.time.month
+            || list[position].event.dateEvent.year != nowDate.time.year){
             NOT_ACTIVITY
         } else{
             ACTIVITY

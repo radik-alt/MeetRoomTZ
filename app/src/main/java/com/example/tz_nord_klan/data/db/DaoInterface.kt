@@ -50,6 +50,9 @@ interface DaoInterface {
     @Query("SELECT * FROM Container WHERE idContainer=:idContainer")
     fun getContainerWithEventById(idContainer: Long): LiveData<ContatinerWithEvent>
 
+    @Query("SELECT count(*) FROM Container")
+    fun getCountContainer() : LiveData<Int>
+
     @Transaction
     @Query("SELECT * FROM Container WHERE isUsed=1")
     fun getContainerWithEventByUsed(): LiveData<ContatinerWithEvent>

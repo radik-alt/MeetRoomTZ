@@ -53,9 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
             app:startIconDrawable="@drawable/ic_baseline_lock_24"
-            app:passwordToggleContentDescription="description"
-            app:passwordToggleEnabled="true"
-            app:endIconCheckable="true">
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
@@ -69,6 +67,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/go"
+            android:textColor="@color/white"
+            android:background="@drawable/item_container_used"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
