@@ -4,7 +4,7 @@
 User(name="Radik", password="password")
 User(name="Mikel", password="pass")
 User(name="Admin", password="admin")
-User(name="Olge", password="password")
+User(name="Oleg", password="password")
 ), 
 то пеереход на экран c Событиями, куда еще передаем авторизованный объект User (события можно добавлять, только если есть контейнер, контейнер по умолчанию добавлен).
 При клике на собтие мы можем подписаться на него User-а. Также есть функционал смены времени, смены даты, удаления события (добавлять событие тоже можно).
