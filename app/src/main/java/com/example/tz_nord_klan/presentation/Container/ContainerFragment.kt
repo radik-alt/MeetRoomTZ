@@ -1,16 +1,13 @@
 package com.example.tz_nord_klan.presentation.Container
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.example.tz_nord_klan.R
 import com.example.tz_nord_klan.data.entity.ContatinerWithEvent
-import com.example.tz_nord_klan.presentation.viewModelDB
 import com.example.tz_nord_klan.databinding.ContainerFragmentBinding
 import com.example.tz_nord_klan.presentation.Container.changeContainer.ChangeContainerFragment
 import com.example.tz_nord_klan.presentation.Container.changeContainer.ViewContainerFragment
@@ -23,8 +20,9 @@ class ContainerFragment : Fragment() {
     private var _binding: ContainerFragmentBinding? = null
     private val binding: ContainerFragmentBinding
         get() = _binding ?: throw RuntimeException("ContainerFragmentBinding == null")
-    private val viewModel: ContainerViewModel by activityViewModels()
-    private val viewModelConnectDb : viewModelDB by activityViewModels()
+
+    private val viewModelShared: SharedContainerViewModel by activityViewModels()
+    private lateinit var containerViewModel: ContainerViewModel
 
     private var listContainer : ArrayList<ContatinerWithEvent> = ArrayList()
 
@@ -36,6 +34,7 @@ class ContainerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = ContainerFragmentBinding.inflate(inflater, container, false)
+        containerViewModel = ViewModelProvider(this).get(ContainerViewModel::class.java)
         setHasOptionsMenu(true)
 
 
@@ -43,7 +42,7 @@ class ContainerFragment : Fragment() {
     }
 
     override fun onResume() {
-        viewModelConnectDb.getContainerWithEventAndUser().observe(viewLifecycleOwner){
+        containerViewModel.getContainer().observe(viewLifecycleOwner){
             if (listContainer.isNotEmpty()){
                 listContainer.clear()
             }
@@ -57,7 +56,7 @@ class ContainerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding.addContainer.setOnClickListener {
-            viewModel.setEdit(false)
+            viewModelShared.setEdit(false)
             bottomDialog(0)
         }
 
@@ -68,11 +67,11 @@ class ContainerFragment : Fragment() {
         adapterContainer = ContainerAdapter(object : InterfaceContainer{
             override fun onClickContainer(container: ContatinerWithEvent, choose: Int) {
                 if (choose == 0){
-                    viewModel.setContainer(container)
-                    viewModel.setEdit(true)
+                    viewModelShared.setContainer(container)
+                    viewModelShared.setEdit(true)
                 } else if (choose==1) {
-                    viewModel.setContainer(container)
-                    viewModel.setEdit(false)
+                    viewModelShared.setContainer(container)
+                    viewModelShared.setEdit(false)
                 }
 
                 bottomDialog(choose)

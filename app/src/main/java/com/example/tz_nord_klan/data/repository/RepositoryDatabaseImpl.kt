@@ -8,12 +8,9 @@ import com.example.tz_nord_klan.domain.repository.RepositoryDB
 class RepositoryDatabaseImpl(private val daoInterface: DaoInterface) : RepositoryDB {
 
 
-    fun getUser(name: String, password: String): LiveData<User> =
-        daoInterface.getUser(name, password)
+    override fun getCountRepository() : LiveData<Int> = daoInterface.getCountContainer()
 
-    fun getListUser(): LiveData<List<User>> = daoInterface.getListUser()
-
-    fun getCountContainer() : LiveData<Int> = daoInterface.getCountContainer()
+    override fun getListUser(): LiveData<List<User>> = daoInterface.getListUser()
 
     override suspend fun insertContainer(container: Container) {
         daoInterface.addContainer(container)
@@ -67,9 +64,5 @@ class RepositoryDatabaseImpl(private val daoInterface: DaoInterface) : Repositor
         daoInterface.setContainerWithEventByUsed()
     }
 
-
-    override fun getUserWithEvent(): LiveData<List<EventWithUser>> {
-        return daoInterface.getUserWithEvent()
-    }
 
 }

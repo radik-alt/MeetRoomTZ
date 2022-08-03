@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.tz_nord_klan.data.entity.ContatinerWithEvent
 
-class ContainerViewModel : ViewModel() {
+class SharedContainerViewModel : ViewModel() {
 
     private val containerData = MutableLiveData<ContatinerWithEvent>()
     private val isEdit = MutableLiveData<Boolean>()
